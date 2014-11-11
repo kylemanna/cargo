@@ -7,7 +7,7 @@ stdout=$(mktemp)
 
 # keep it classy
 rm_tmp() { rm -f "$stderr" "$stdout"; }
-trap rm_tmp EXIT
+#trap rm_tmp EXIT
 
 # unit under test
 ../cargo ubuntu:14.04 . > "$stdout" 2> "$stderr"

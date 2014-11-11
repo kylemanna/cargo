@@ -4,3 +4,28 @@
 #
 # Author: Kyle Manna <kyle@kylemanna.com>
 #
+
+IMG=$1
+SRC=$2
+
+#
+# When invoked inside the docker container (i.e. receiver)
+#
+if [[ "$0" == *cargo_internal ]]; then
+    /cargo/run.sh
+    exit $?
+fi
+
+#
+# When invoked from the host (i.e. transmitter)
+#
+if [ -z "$IMG" -o -z "$SRC" ]; then
+    echo "Invalid arguments"
+    echo
+    echo "usage: $0 DOCKER_IMAGE CARGO_SRC_DIRECTORY"
+    echo
+    exit 1
+fi
+
+#set -x
+docker run -v $(readlink -f $SRC):/cargo -v $(readlink -f $0):/usr/local/bin/cargo_internal:ro --rm -it $IMG cargo_internal
