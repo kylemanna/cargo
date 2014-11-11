@@ -1,0 +1,6 @@
+#!/bin/bash
+#
+# Cargo - an object that passes through a Docker container
+#
+# Author: Kyle Manna <kyle@kylemanna.com>
+#
